@@ -1,7 +1,8 @@
 # Election Analysis
 
 ## Project Overview
-A Colorado Board of Elections employee wants to complete an election audit of a recent local congressional election
+A Colorado Board of Elections employee wants to complete an election audit of
+a recent local congressional election.
 
 Need the following analysis:
 1. The total number of votes cast
@@ -29,6 +30,24 @@ The analysis shows:
 	+ Diana Degette, who received 73.8% of the vote and 272,892 votes
 
 ## Challenge Overview
+Now the employee wants to confirm the voter turnout for each county.
 
+This involves:
+- Determining the number of votes that were cast from each county
+- Calculating the percentage of votes each county contributed to the election
 
 ## Challenge Summary
+The analysis shows:
+- The counties were:
+	+ Jefferson
+	+ Denver
+	+ Arapahoe
+- The county results were:
+	+ Jefferson contributed 10.5% of the vote and 38,855 votes
+	+ Denver contributed 82.8% of the vote and 306,055 votes
+	+ Arapahoe contributed 6.7% of the vote and 24,801 votes
+- The largest county was:
+	+ Denver, which contributed 82.8% of the vote and 306,055 votes
+
+
+	
