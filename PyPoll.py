@@ -21,10 +21,8 @@ analysis_file_path = os.path.join('analysis', 'election_analysis.txt')
 # initialize total votes counter
 total_votes = 0
 
-# list of candidates
+# candidates and votes
 candidate_options = []
-
-# dictionary for candidate: votes
 candidate_votes = {}
 
 # winning candidate and count tracker
@@ -34,7 +32,6 @@ winning_percentage = 0
 
 # open data file for read
 with open(data_file_path) as election_data:
-
 	# create reader object
 	file_reader = csv.reader(election_data)
 	
@@ -43,7 +40,6 @@ with open(data_file_path) as election_data:
 
 	for row in file_reader:
 		total_votes += 1 # increment total votes
-
 		candidate_name = row[2]
 		if candidate_name not in candidate_options: 
 			# if it's a new candidate, add to list
@@ -54,30 +50,43 @@ with open(data_file_path) as election_data:
 		# increment this candidates # of votes
 		candidate_votes[candidate_name] += 1
 
-# go through candidates
-for candidate in candidate_votes:
-	# retrieve vote count
-	votes = candidate_votes[candidate]
-	# calculate percentage
-	vote_percentage = int(votes) / int(total_votes) * 100
+# open output file for write
+with open(analysis_file_path, 'w') as output_file:
+	election_results = (
+		f'\nElection Results\n'
+		f'--------------------\n'
+		f'Total Votes: {total_votes:,}\n'
+		f'--------------------\n')
+	# save final vote count
+	output_file.write(election_results)
 
-	print(f'{candidate}: {vote_percentage:.1f}% ({votes:,})')
+	# go through candidates
+	for candidate in candidate_votes:
+		# retrieve vote count
+		votes = candidate_votes[candidate]
+		# calculate percentage
+		vote_percentage = int(votes) / int(total_votes) * 100
+		candidate_results = (
+			f'{candidate}: {vote_percentage:.1f}% ({votes:,})\n')
+		#save candidate's results
+		output_file.write(candidate_results)
 
-	# update winner trackers
-	if (votes > winning_count) and (vote_percentage > winning_percentage):
-		winning_count = votes
-		winning_percentage = vote_percentage
-		winning_candidate = candidate
+
+		# update winner trackers
+		if (votes > winning_count) and (vote_percentage > winning_percentage):
+			winning_count = votes
+			winning_percentage = vote_percentage
+			winning_candidate = candidate
 
 
-
-winning_candidate_summary = (
-	f'-----------------------\n'
-	f'Winner: {winning_candidate}\n'
-	f'Winning Vote Count: {winning_count:,}\n'
-	f'Winning Percentage: {winning_percentage:.1f}%\n'
-	f'-----------------------\n')
-print(winning_candidate_summary)
+	winning_candidate_summary = (
+		f'-----------------------\n'
+		f'Winner: {winning_candidate}\n'
+		f'Winning Vote Count: {winning_count:,}\n'
+		f'Winning Percentage: {winning_percentage:.1f}%\n'
+		f'-----------------------\n')
+	# save winning candidate's results
+	output_file.write(winning_candidate_summary)
 
 
 
